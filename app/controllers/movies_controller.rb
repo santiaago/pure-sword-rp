@@ -7,8 +7,21 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
+    
+    flash[:title_color] = ''
+    flash[:release_date_color] = ''
+    
+    if params[:id] == 'title_header'
+      @movies = Movie.find :all, :order => 'title'
+      flash[:title_color] = 'hilite'
+    elsif params[:id] == 'release_date_header'
+      @movies = Movie.find :all, :order => 'release_date DESC'
+      flash[:release_date_color] = 'hilite'
+    else
+      @movies = Movie.all
+    end
   end
+  
 
   def new
     # default: render 'new' template
