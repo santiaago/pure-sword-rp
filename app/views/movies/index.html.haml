@@ -5,10 +5,10 @@
   %thead
     %tr
       -#%th Movie Title
-      %th#title_header{:class => flash[:title_color]}= link_to "Movie Title", :sort => :title
+      %th{:class => flash[:title_color]}= link_to#title_header "Movie Title", :sort => :title
       %th Rating
       -#%th Release Date
-      %th#release_date_header{:class => flash[:release_date_color]}= link_to "Release Date", :sort => :release_date
+      %th{:class => flash[:release_date_color]}= link_to#release_date_header "Release Date", :sort => :release_date
       %th More Info
   %tbody
     - @movies.each do |movie|
