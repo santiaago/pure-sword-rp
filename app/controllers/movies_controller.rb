@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
       @movies = Movie.find :all, :order => 'title'
       flash[:title_color] = 'hilite'
     elsif params[:sort] == 'release_date'
-      @movies = Movie.find :all, :order => 'release_date DESC'
+      @movies = Movie.find :all, :order => 'release_date'
       flash[:release_date_color] = 'hilite'
     else
       @movies = Movie.all
