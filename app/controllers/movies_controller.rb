@@ -20,25 +20,25 @@ class MoviesController < ApplicationController
     flash[:release_date_color] = ''
     @ratings = @all_ratings
     
-    if params[:commit]=="Refresh"
-      session[:ratings] = params[:ratings]
-    end
-    if params[:sort]!= nil
-      session[:sort] = params[:sort]
-    end
+    #if params[:commit]=="Refresh"
+    #  session[:ratings] = params[:ratings]
+    #end
+    #if params[:sort]!= nil
+    #  session[:sort] = params[:sort]
+    #end
     
-    if params[:sort] == nil and params[:sort] == nil
-       redirect_opts = {}
-       if session[:sort] != nil
-         redirect_opts[:sort] = session[:sort]
-       end
-       if session[:ratings] != nil
-         redirect_opts[:ratings] = session[:ratings]
-       end
-       if !redirect_opts.empty?
-         redirect_to movies_path(redirect_opts)
-       end
-     end
+    #if params[:sort] == nil and params[:sort] == nil
+    #   redirect_opts = {}
+    #   if session[:sort] != nil
+    #     redirect_opts[:sort] = session[:sort]
+    #   end
+    #   if session[:ratings] != nil
+    #     redirect_opts[:ratings] = session[:ratings]
+    #   end
+    #   if !redirect_opts.empty?
+    #     redirect_to movies_path(redirect_opts)
+    #   end
+    #end
     
     if params[:sort] == 'title'
       #@movies = Movies.order(params[:sort])
@@ -69,6 +69,18 @@ class MoviesController < ApplicationController
     end
     
     if redirect
+       if params[:sort] == nil and params[:sort] == nil
+           redirect_opts = {}
+           if session[:sort] != nil
+             redirect_opts[:sort] = session[:sort]
+           end
+           if session[:ratings] != nil
+             redirect_opts[:ratings] = session[:ratings]
+           end
+           if !redirect_opts.empty?
+             redirect_to movies_path(redirect_opts)
+           end
+        end
       #if @sort_by == :id and !@ratings.empty?
       #  redirect_to movies_path(:ratings=>@ratings)
       #elsif @sort_by != :id and @ratings.empty?
