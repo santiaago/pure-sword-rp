@@ -70,8 +70,8 @@ class MoviesController < ApplicationController
     
     if redirect
        if params[:sort] == nil and params[:sort] == nil
-           redirect_opts = {}
-           if session[:sort] != nil
+          redirect_opts = {}
+          if session[:sort] != nil
              redirect_opts[:sort] = session[:sort]
            end
            if session[:ratings] != nil
@@ -100,8 +100,8 @@ class MoviesController < ApplicationController
     end
     flash[:sort] = @sort_by
     flash[:ratings] = @ratings
-    #session[:sort] =@sort_by
-    #session[:ratings]=@ratings
+    session[:sort] =@sort_by
+    session[:ratings]=@ratings
   end
 
   def new
