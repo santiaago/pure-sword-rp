@@ -41,10 +41,10 @@ class MoviesController < ApplicationController
       @ratings = session[:ratings]
       redirect = true
     else
-      #@ratings = {}
-      #@all_ratings.each do |rating|
-      #  @ratings[rating] = "yes"
-      #end
+      @ratings = {}
+      @all_ratings.each do |rating|
+        @ratings[rating] = "yes"
+      end
       #redirect = true
     end
     
