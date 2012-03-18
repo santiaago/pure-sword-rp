@@ -31,8 +31,8 @@ class MoviesController < ApplicationController
       @sort_by = session[:sort]
       redirect = true  
     else
-      @sort_by = :id
-      redirect = true
+      #@sort_by = :id
+      #redirect = true
     end
     if params["ratings"]
       @ratings = params["ratings"]
@@ -44,7 +44,7 @@ class MoviesController < ApplicationController
       #@all_ratings.each do |rating|
       #  @ratings[rating] = "yes"
       #end
-      redirect = true
+      #redirect = true
     end
     
     if redirect
