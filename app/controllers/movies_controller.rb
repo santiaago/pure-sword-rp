@@ -52,6 +52,7 @@ class MoviesController < ApplicationController
         redirect_to movies_path(:ratings=>@ratings)
       else
         redirect_to movies_path(:sort=>@sort_by,:ratings=>@ratings)
+      end
     end
     
     all_movies = Movie.order(@sort_by)
