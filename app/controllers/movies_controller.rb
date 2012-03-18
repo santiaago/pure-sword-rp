@@ -22,11 +22,11 @@ class MoviesController < ApplicationController
       #@movies = Movies.order(params[:sort])
       flash[:title_color] = 'hilite'
       @sort_by = params[:sort]
-      
     elsif params[:sort] == 'release_date'
       #@movies = Movies.order(params[:sort])
       flash[:release_date_color] = 'hilite'
       @sort_by = params[:sort]
+      redirect_opts[:sort] = params[:sort]
     elsif session[:sort]
       @sort_by = session[:sort]
       redirect = true  
@@ -40,19 +40,22 @@ class MoviesController < ApplicationController
       @ratings = session[:ratings]
       redirect = true
     else
-      @ratings = {}
-      @all_ratings.each do |rating|
-        @ratings[rating] = "yes"
-      end
+      #@ratings = {}
+      #@all_ratings.each do |rating|
+      #  @ratings[rating] = "yes"
+      #end
       redirect = true
     end
     
     if redirect
-      if @sort_by == :id
+      if @sort_by == :id and !@ratings.empty?
         redirect_to movies_path(:ratings=>@ratings)
+      elsif @sort_by != :id and @ratings.empty?
+        redirect_to movies_path(:sort=>@sort_by)
       else
-        redirect_to movies_path(:sort=>@sort_by,:ratings=>@ratings)
+        redirect_to movies_path
       end
+        
     end
     
     all_movies = Movie.order(@sort_by)
