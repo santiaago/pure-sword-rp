@@ -19,22 +19,26 @@ class MoviesController < ApplicationController
     flash[:release_date_color] = ''
     
     if params[:sort] == 'title'
-      @movies = Movies.order(params[:sort])
+      #@movies = Movies.order(params[:sort])
       flash[:title_color] = 'hilite'
       @sort_by = params[:sort]
       
     elsif params[:sort] == 'release_date'
-      @movies = Movies.order(params[:sort])
+      #@movies = Movies.order(params[:sort])
       flash[:release_date_color] = 'hilite'
       @sort_by = params[:sort]
-      
+    elsif session[:sort]
+      @sort_by = session[:sort]
+      redirect = true  
     else
       @sort_by = :id
       redirect = true
     end
     if params["ratings"]
       @ratings = params["ratings"]
-      
+    elsif session[:ratings]
+      @ratings = session[:ratings]
+      redirect = true
     else
       @ratings = {}
       @all_ratings.each do |rating|
@@ -42,9 +46,11 @@ class MoviesController < ApplicationController
       end
       redirect = true
     end
-    #if redirect
-    #  redirect_to movies_path(:sort=>@sort_by,:ratings=>@ratings)
-    #end
+    
+    if redirect
+      redirect_to movies_path(:sort=>@sort_by,:ratings=>@ratings)
+    end
+    
     all_movies = Movie.order(@sort_by)
     @movies = []
     all_movies.each do |movie|
@@ -54,11 +60,13 @@ class MoviesController < ApplicationController
     end
     flash[:sort] = @sort_by
     flash[:ratings] = @ratings
+    session[:sort] =@sort_by
+    session[:ratings]=@ratings
   end
 
   def new
     # default: render 'new' template
-    #@all_ratings = Movie.find(:all,:select=>"rating", :group => "rating").map(&:rating)
+    @all_ratings = Movie.find(:all,:select=>"rating", :group => "rating").map(&:rating)
   end
 
   def create
