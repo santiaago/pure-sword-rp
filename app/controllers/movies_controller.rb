@@ -9,22 +9,27 @@ class MoviesController < ApplicationController
   def initialize
     @all_ratings = Movie.all_ratings
     @ratings = @all_ratings
+    @sort_by = :id
     super
   end
 
   def index
-    
+    redirect = false
     flash[:title_color] = ''
     flash[:release_date_color] = ''
     
     if params[:sort] == 'title'
-      @movies = Movie.find :all, :order => 'title'
+      #@movies = Movie.find :all, :order => 'title'
       flash[:title_color] = 'hilite'
+      @sort_by = params[:sort]
     elsif params[:sort] == 'release_date'
-      @movies = Movie.find :all, :order => 'release_date'
+      #@movies = Movie.find :all, :order => 'release_date'
       flash[:release_date_color] = 'hilite'
+      @sort_by = params[:sort]
     else
-      @movies = Movie.all
+      #@movies = Movie.all
+      @sort_by = :id
+      redirect = true
     end
     
     if params["ratings"]
@@ -34,11 +39,11 @@ class MoviesController < ApplicationController
       @all_ratings.each do |rating|
         @ratings[rating]="yes"
       end
-          #redirect = true
+          redirect = true
     end
-    #if redirect
-    #      redirect_to movies_path(:sort_by=>@sort_by,:ratings=>@ratings)
-    #end
+    if redirect
+         redirect_to movies_path(:sort_by=>@sort_by,:ratings=>@ratings)
+    end
     
   end
 
