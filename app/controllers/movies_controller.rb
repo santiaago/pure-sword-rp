@@ -56,7 +56,7 @@ class MoviesController < ApplicationController
       #else
         #redirect_to movies_path
       #end
-      push "hello!"
+      print "hello!"
     end
     
     all_movies = Movie.order(@sort_by)
