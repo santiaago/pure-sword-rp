@@ -34,7 +34,7 @@ class MoviesController < ApplicationController
     
     if params["ratings"]
       @ratings= params["ratings"]
-      @movies = Movies.find :all, :order => 'title'#:ratings => @ratings
+      @movies = Movies.find(:all, :conditions => @ratings)#:ratings => @ratings
     else
       @ratings = {}
       @all_ratings.each do |rating|
