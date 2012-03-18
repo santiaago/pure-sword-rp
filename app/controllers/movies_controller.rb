@@ -73,7 +73,7 @@ class MoviesController < ApplicationController
 
   def new
     # default: render 'new' template
-    @all_ratings = Movie.find(:all,:select=>"rating", :group => "rating").map(&:rating)
+    #@all_ratings = Movie.find(:all,:select=>"rating", :group => "rating").map(&:rating)
   end
 
   def create
