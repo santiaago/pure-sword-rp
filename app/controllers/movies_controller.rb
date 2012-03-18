@@ -45,6 +45,14 @@ class MoviesController < ApplicationController
          redirect_to movies_path(:sort_by=>@sort_by,:ratings=>@ratings)
     end
     
+    all_movies = Movie.order(@sort_by)
+    @movies = []
+    all_movies.each do |movie|
+      if @ratings.keys.include?(movie["rating"])
+        @movies << movie
+      end
+    end
+    
   end
 
   def new
