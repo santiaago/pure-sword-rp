@@ -8,6 +8,7 @@ class MoviesController < ApplicationController
   
   def initialize
     @all_ratings = Movie.all_ratings
+    @ratings = @all_ratings
     super
   end
 
@@ -25,6 +26,20 @@ class MoviesController < ApplicationController
     else
       @movies = Movie.all
     end
+    
+    if params["ratings"]
+      @ratings= params["ratings"]
+    else
+      @ratings = {}
+      @all_ratings.each do |rating|
+        @ratings[rating]="yes"
+      end
+          #redirect = true
+    end
+    #if redirect
+    #      redirect_to movies_path(:sort_by=>@sort_by,:ratings=>@ratings)
+    #end
+    
   end
 
   def new
