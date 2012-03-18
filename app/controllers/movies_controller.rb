@@ -21,7 +21,8 @@ class MoviesController < ApplicationController
     @ratings = @all_ratings
     
     if session.key? :ratings and session.key? :sort
-          redirect_to movies_path({:sort => session[:sort], :ratings => session[:ratings]})
+      print session   
+      redirect_to movies_path({:sort => session[:sort], :ratings => session[:ratings]})
     end
     
     if params[:sort] == 'title'
