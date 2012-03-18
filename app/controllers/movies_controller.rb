@@ -20,10 +20,22 @@ class MoviesController < ApplicationController
     flash[:release_date_color] = ''
     @ratings = @all_ratings
     
-    if session.key? :ratings and session.key? :sort
-      print session   
-      redirect_to movies_path({:sort => session[:sort], :ratings => session[:ratings]})
-    end
+    #if session.key? :ratings and session.key? :sort
+    #  print session   
+    #  redirect_to movies_path({:sort => session[:sort], :ratings => session[:ratings]})
+    #end
+    if params[:sort] == nil and params[:sort] == nil
+       redirect_opts = {}
+       if session[:sort] != nil
+         redirect_opts[:sort] = session[:sort]
+       end
+       if session[:ratings] != nil
+         redirect_opts[:ratings] = session[:ratings]
+       end
+       if !redirect_opts.empty?
+         redirect_to movies_path(redirect_opts)
+       end
+     end
     
     if params[:sort] == 'title'
       #@movies = Movies.order(params[:sort])
