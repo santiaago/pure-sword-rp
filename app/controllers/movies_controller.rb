@@ -26,7 +26,6 @@ class MoviesController < ApplicationController
       #@movies = Movies.order(params[:sort])
       flash[:release_date_color] = 'hilite'
       @sort_by = params[:sort]
-      redirect_opts[:sort] = params[:sort]
     elsif session[:sort]
       @sort_by = session[:sort]
       redirect = true  
