@@ -17,35 +17,52 @@ class MoviesController < ApplicationController
     redirect = false
     flash[:title_color] = ''
     flash[:release_date_color] = ''
+    @ratings = params["ratings"]
+    @all_ratings = Movie.all_ratings
+    
     
     if params[:sort] == 'title'
       #@movies = Movie.find :all, :order => 'title'
+      @movies = Movies.order(params[:sort])
       flash[:title_color] = 'hilite'
-      @sort_by = params[:sort]
+      #@sort_by = params[:sort]
     elsif params[:sort] == 'release_date'
       #@movies = Movie.find :all, :order => 'release_date'
+      @movies = Movies.order(params[:sort])
       flash[:release_date_color] = 'hilite'
-      @sort_by = params[:sort]
+      #@sort_by = params[:sort]
     else
       #@movies = Movie.all
-      @sort_by = :id
-      redirect = true
+      #@sort_by = :id
+      #redirect = true
+      @movies = []
+      if @ratings
+        @ratings.each do |rating|
+          Movie.getMoviesWithRating(rating).each do |movie|
+            @movie << movie
+          end
+        end
+        return @movies
+      else
+        @movies = []
+      end
+      return @movies
     end
     
-    if params["ratings"]
-      @ratings= params["ratings"]
-      @movies = Movies.find(:all, :conditions => @ratings)#:ratings => @ratings
-    else
-      @ratings = {}
-      @all_ratings.each do |rating|
-        @ratings[rating]="yes"
-      end
-          redirect = true
-    end
-    if redirect
-        @movies = Movie.all
+    #if params["ratings"]
+    #  @ratings= params["ratings"]
+      #@movies = Movies.find(:all, :conditions => @ratings)#:ratings => @ratings
+    #else
+    #  @ratings = {}
+    #  @all_ratings.each do |rating|
+    #    @ratings[rating]="yes"
+    #  end
+    #      redirect = true
+    #end
+    #if redirect
+    #    @movies = Movie#.all
         # redirect_to movies_path(:order=>@sort_by)#,:ratings=>@ratings)
-    end
+    #end
     
     #all_movies = Movie.order(@sort_by)
     #@movies = []
