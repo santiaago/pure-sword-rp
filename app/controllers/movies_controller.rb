@@ -6,17 +6,19 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
   
-  def initialize
-    @all_ratings = Movie.all_ratings
-    @ratings = @all_ratings
-    @sort_by = :id
-    super
-  end
+  #def initialize
+  #  @all_ratings = Movie.all_ratings
+  #  @ratings = @all_ratings
+  #  @sort_by = :id
+  #  super
+  #end
 
   def index
+    @all_ratings = Movie.all_ratings
     redirect = false
     flash[:title_color] = ''
     flash[:release_date_color] = ''
+    @ratings = @all_ratings
     
     if params[:sort] == 'title'
       #@movies = Movies.order(params[:sort])
@@ -72,7 +74,7 @@ class MoviesController < ApplicationController
 
   def new
     # default: render 'new' template
-    #@all_ratings = Movie.find(:all,:select=>"rating", :group => "rating").map(&:rating)
+    @all_ratings = Movie.find(:all,:select=>"rating", :group => "rating").map(&:rating)
   end
 
   def create
