@@ -30,7 +30,7 @@ class MoviesController < ApplicationController
     elsif session[:sort]
       @sort_by = session[:sort]
       redirect = true  
-    else
+    #else
       #@sort_by = :id
       #redirect = true
     end
@@ -47,16 +47,16 @@ class MoviesController < ApplicationController
       #redirect = true
     end
     
-    if redirect
+    #if redirect
       #if @sort_by == :id and !@ratings.empty?
       #  redirect_to movies_path(:ratings=>@ratings)
       #elsif @sort_by != :id and @ratings.empty?
       #  redirect_to movies_path(:sort=>@sort_by)
       #else
-        redirect_to movies_path
+        #redirect_to movies_path
       #end
         
-    end
+    #end
     
     all_movies = Movie.order(@sort_by)
     @movies = []
