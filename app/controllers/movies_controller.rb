@@ -34,6 +34,7 @@ class MoviesController < ApplicationController
     
     if params["ratings"]
       @ratings= params["ratings"]
+      @movies = Movies.find :all, :ratings => @ratings
     else
       @ratings = {}
       @all_ratings.each do |rating|
@@ -42,7 +43,8 @@ class MoviesController < ApplicationController
           redirect = true
     end
     if redirect
-         redirect_to movies_path(:order=>@sort_by)#,:ratings=>@ratings)
+        @movies = Movie.all
+        # redirect_to movies_path(:order=>@sort_by)#,:ratings=>@ratings)
     end
     
     #all_movies = Movie.order(@sort_by)
