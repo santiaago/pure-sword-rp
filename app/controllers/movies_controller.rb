@@ -47,7 +47,7 @@ class MoviesController < ApplicationController
     all_movies = Movie.order(@sort_by)
     @movies = []
     all_movies.each do |movie|
-      if @ratings.key.include?(movie["rating"])
+      if @ratings.keys.include?(movie["rating"])
         @movies << movie
       end
     end
