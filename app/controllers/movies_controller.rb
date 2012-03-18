@@ -48,7 +48,7 @@ class MoviesController < ApplicationController
       #redirect = true
     end
     
-    #if redirect
+    if redirect
       #if @sort_by == :id and !@ratings.empty?
       #  redirect_to movies_path(:ratings=>@ratings)
       #elsif @sort_by != :id and @ratings.empty?
@@ -56,8 +56,8 @@ class MoviesController < ApplicationController
       #else
         #redirect_to movies_path
       #end
-        
-    #end
+      push "hello!"
+    end
     
     all_movies = Movie.order(@sort_by)
     @movies = []
