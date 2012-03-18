@@ -48,7 +48,7 @@ class MoviesController < ApplicationController
     end
     
     if redirect
-      if @sort == 'id'
+      if @sort_by == 'id'
         redirect_to movies_path(:ratings=>@ratings)
       else
         redirect_to movies_path(:sort=>@sort_by,:ratings=>@ratings)
